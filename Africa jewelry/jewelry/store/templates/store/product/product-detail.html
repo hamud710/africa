@@ -1,0 +1,246 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area product_bread">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="{% url 'home' %}">home</a></li>
+                        <li>></li>
+                        <li><a href="{% url 'shop' %}">shop</a></li>
+                        <li>></li>
+                        <li>product details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+
+
+
+
+<!--product details start-->
+<div class="product_details">
+    <div class="container">
+        <div class="row  ">
+            <div class="row  "  >
+            
+            <div class="col-lg-6 col-md-6">
+                
+                <div class="product-details-tab">
+
+                    <div id="img-1" class="zoomWrapper single-zoom">
+                        <a href="#">
+                            <img id="zoom1" src="{{ItemDetail.product_image1.url}}" data-zoom-image="{{ItemDetail.product_image1.url}}" alt="big-1">
+                        </a>
+                    </div>
+
+                    <div class="single-zoom-thumb">
+                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+                            <li>
+                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image=" {{ItemDetail.product_image1.url}} " data-zoom-image="{{ItemDetail.product_image1.url}}">
+                                    <img src="{{ItemDetail.product_image1.url}}" alt="zo-th-1" />
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ItemDetail.product_image2.url}}" data-zoom-image="{{ItemDetail.product_image2.url}}">
+                                    <img src="{{ItemDetail.product_image2.url}}" alt="zo-th-1" />
+                                </a>
+
+                            </li>
+                            
+                            {% if product_image3 %}
+                            <li>
+                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="{{ItemDetail.product_image3.url}}" data-zoom-image="{{ItemDetail.product_image3.url}}">
+                                    <img src="{{ItemDetail.product_image3.url}}" alt="zo-th-1" />
+                                </a>
+
+                            </li>
+                            {% endif %}
+                                
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 product_data ">
+                <div class="product_d_right ">
+                    
+
+                        <h1> {{ItemDetail.name}} </h1>
+                        
+                        {% if ItemDetail.trending %}
+                        <span class="current_price" style="color: rgb(207, 68, 68);" >Trending</span>
+                        {% endif %}
+                            
+                        
+                       
+                        <div class=" product_ratting">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li><a href="#"> (customer review ) </a></li>
+                            </ul>
+                        </div>
+
+                        <div class="product_price">
+                            <span class="old_price">Br {{ItemDetail.original_price | stringformat:'d' }} </span>
+                            <span class="current_price">Br {{ItemDetail.selling_price | stringformat:'d' }} </span>
+                        </div>
+
+                        
+                        {% if ItemDetail.quantity > 0%}
+                        <div class="product_variant quantity">
+                            <h5 class="button" style="background-color: rgb(9, 63, 18);" >IN STOCK</h5>
+
+                        </div>
+                        {% else %}
+                        <div class="product_variant quantity">
+                            <h5 class="button" style="background-color: rgb(126, 5, 5);" >OUT OF STOCK</h5>
+
+                        </div>
+                        {% endif %}
+                            
+                        
+
+                        
+                        <div class="product_desc">
+                            <p>{{ItemDetail.small_description}} </p>
+                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" value=" {{ItemDetail.pk}}" class="prod_id" >
+
+                        {% if ItemDetail.quantity > 0%}
+                        
+                        <div class="product_variant quantity">
+                            <label>quantity  </label>
+                            <input min="1" class="qty-input"  max="{{ItemDetail.Quantity}}" value="1" type="number">
+                            <button class="button addtocartbtn" type="submit">add to cart</button>
+                            
+
+                        </div>
+                        
+                        {% endif %}
+                        
+                        
+                        <div class="product_meta">
+                            <span>Category: <a href="#"> {{ItemDetail.category}} </a></span>
+                        </div>
+
+                   
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--product details end-->
+
+<br>
+<br>
+<br>
+
+<div class="product_d_info">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="product_d_inner">   
+                    <div class="product_info_button">    
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-bs-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
+                            </li>
+                            <li>
+                               <a data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="product_info_content">
+                                <p> {{ItemDetail.small_description}} </p>
+                                <p>  {{ItemDetail.description}} </p>
+                            </div>    
+                        </div>
+
+                        <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="reviews_wrapper">
+                                <h2>1 review for Donec eu furniture</h2>
+                                {% for rev in review %}
+                                <div class="reviews_comment_box">
+                                    
+                                    <div class="comment_text">
+                                        <div class="reviews_meta">
+                                            
+                                            <p><strong>{{rev.user}}  </strong>- {{rev.created_at}} </p>
+                                            <span>{{rev.comment}}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                {% endfor %}
+                                
+                                
+                                <div class="comment_title">
+                                    <h2>Add a review </h2>
+                                    <p>Your email address will not be published.  Required fields are marked </p>
+                                </div>
+                                <div class="product_ratting mb-10">
+                                   <h3>Your rating</h3>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product_review_form">
+                                    <form method="POST"  action="{% url 'addreview' %}">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="review_comment">Your review </label>
+                                                <input type="hidden" name="productid" value="{{ItemDetail.id}}" >
+                                                <textarea name="comment" id="review_comment"></textarea>
+                                            </div> 
+                                            
+                                        </div>
+                                        <button type="submit">Submit</button>
+                                     </form>   
+                                </div> 
+                            </div>    
+                            
+                        </div>
+                        
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </div>    
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+    

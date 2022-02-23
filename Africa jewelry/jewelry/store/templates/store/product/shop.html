@@ -1,0 +1,323 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href=" {% url 'home' %} ">home</a></li>
+                        <li>></li>
+                        <li>shop list</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+
+
+
+
+  <!--shop  area start-->
+  <div class="shop_area shop_fullwidth shop_reverse ">
+    <section class="product_section p_section1 ">
+    <div class="container">
+        <div class="row">
+            <!--shop toolbar start-->
+            <div class="shop_toolbar">
+                   
+                <div class="orderby_wrapper">
+                    
+                   
+                   
+                        
+                    <form   method="get">
+                        <h3>Price: </h3>
+                        {{ filter.form.Price }}
+                        <h3>Category:</h3>
+                        
+                        
+                            {{ filter.form.Category }}
+                            
+                           
+                        
+                        <button type="submit">Filter</button>
+                    </form>
+
+
+                    
+                  
+                </div>
+            </div>
+            <!--shop toolbar end-->
+            <div class="col-lg-9 col-md-12">
+                <!--shop wrapper start-->
+                
+
+                <!--shop tab product start-->
+                 <div class="tab-content">
+                    <div class="tab-pane grid_view fade show active " id="large" role="tabpanel">
+                        <div class="row">
+                            {% for Items in queryset %}
+
+                            {% if Items.quantity > 0%}
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="single_product product_data ">
+                                    <div class="product_thumb">
+                                        <a class="primary_img" href="{% url 'detail' Items.pk Items.category.name %}"><img src="{{Items.product_image1.url}}" alt=""></a>
+                                        
+                                        <a class="secondary_img" href="{% url 'detail' Items.pk Items.category.name %}"><img src="{{Items.product_image2.url}}" alt=""></a>
+                                        
+                                    </div>
+                                    <div class="product_content">
+                                        <div class="tag_cate">
+                                            <a href="{% url 'detail' Items.pk Items.category.name %}">{{Items.category.name}}</a>
+                                        </div> 
+                                        <h3><a href="{% url 'detail' Items.pk Items.category.name %} "> {{Items.name}} </a></h3>
+                                        <div class="price_box">
+                                            <span class="old_price">${{Items.original_price}}</span>
+                                            <span class="current_price">${{Items.selling_price}}</span>
+                                        </div>
+                                        <div class="product_hover">
+                                            <div class="product_ratings">
+                                                <ul>
+                                                    <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="ion-ios-star-outline"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product_desc">
+                                                <p>{{Items.small_description}}</p>
+                                            </div>
+                                            <div class="action_links">
+                                                <ul>
+                                                    
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value=" {{Items.pk}}" class="prod_id" >
+                                                    <input type="hidden" min="1" class="qty-input"  max="{{ItemDetail.Quantity}}" value="1" type="number">
+                                                        <button class="button addtocartbtn" type="submit">add to cart</button>
+                                                        </button>
+                                                       
+                                                        
+                                                
+                                                    
+                                                   
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                           
+                            {% endfor %}
+                           
+                           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            
+                            
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <!--shop tab product end-->
+               <!--shop toolbar start-->
+               <div class="shop_toolbar t_bottom">
+                <div class="pagination">
+                    <ul>
+                        {% if queryset.has_previous %}
+                        <li><a href="?page={{ queryset.previous_page_number }}"><i class="fa fa-chevron-left"
+                                    aria-hidden="true"></i></a></li>
+                        {% else %}
+                        <li class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+                        </li>
+                        {% endif %}
+
+                        {% if queryset.number|add:'-4' > 1 %}
+                        <li><a href="?page={{ queryset.number|add:'-5' }}">&hellip;</a></li>
+                        {% endif %}
+
+                        {% for i in queryset.paginator.page_range %}
+                        {% if queryset.number == i %}
+                        <li class="current"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% elif i > queryset.number|add:'-5' and i < queryset.number|add:'5' %} <li><a
+                                href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if queryset.paginator.num_pages > queryset.number|add:'4' %}
+                            <li><a href="?page={{ queryset.number|add:'5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% if queryset.has_next %}
+                            <li><a href="?page={{ queryset.next_page_number }}"><i class="fa fa-chevron-right"
+                                        aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><span><i class="fa fa-chevron-right"
+                                        aria-hidden="true"></i></span></li>
+                            {% endif %}
+
+
+
+                    </ul>
+                </div>
+            </div>
+            <!--shop toolbar end-->
+                <!--shop wrapper end-->
+            </div>
+
+
+            <div class="col-lg-3 col-md-12">
+                <!--blog sidebar start-->
+                <aside class="blog_sidebar">
+                   <!--search form start-->
+                    <!-- <div class="sidebar_widget search_form">
+                        <form action="#">
+                            <input placeholder="Search..." type="text">
+                            <button type="submit"><i class="ion-ios-search-strong"></i></button>
+                        </form>
+                    </div> -->
+                    <!--search form end-->
+
+                    <div class="sidebar_widget widget_categories">
+                        <h3 class="widget_title">Categories</h3>
+                        <ul>
+                            <li><a href="#">Fashion</a></li>
+                            <li><a href="#">Travel</a></li>
+                            <li><a href="#">Videos</a></li>
+                            <li><a href="#">Ecommerce</a></li>
+                        </ul>
+                    </div>
+                    <!--categories end-->
+                    
+                     
+                    
+                     <!--recent post start-->
+                    <div class="sidebar_widget recent_post">
+                        <h3 class="widget_title">Recent Discounts</h3>
+                        {% for disitem in discount %}
+                           <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="#"><img src=" {{disitem.product.product_image1.url}} " alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="blog-details.html"> {{disitem.product}} </a></h3>
+                                <span>{{disitem.product.created_at}}</span>
+                                <div class="price_box">
+                                    <span class="old_price">${{disitem.product.original_price}}</span>
+                                    <span class="current_price">${{disitem.product.selling_price}}</span>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        {% endfor %}
+                       
+                            
+                    </div>
+                    <!--recent post end-->
+                     <!--recent post start-->
+                    <div class="sidebar_widget popular_post">
+                        <h3 class="widget_title">Recent Posts</h3>
+
+                        {% for post in blogs %}
+                        <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="#"><img src=" {{post.image1.url}} " alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="blog-details.html"> {{post.title}} </a></h3>
+                                <span>{{post.created_at}} </span>
+                            </div>
+                            
+                        </div>
+                        {% endfor %}
+                        
+                          
+                    </div>
+                    <!--recent post end-->
+                    
+                   
+       
+                </aside>
+ 
+                <!--blog sidebar start-->
+            </div>
+        </div>    
+    </div>
+</section>
+</div>
+<!--shop  area end-->
+
+
+
+
+
+
+
+{% endblock content %}
+    

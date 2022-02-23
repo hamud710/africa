@@ -1,0 +1,61 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+
+ <!-- customer login start -->
+ <div class="customer_login">
+    <div class="container">
+        <br>
+        
+            
+
+            <!--register area start-->
+            <div class="col-lg-10 col-md-6">
+                <div class="account_form register">
+                    <h2>Register</h2>
+                    <form action="" method="post" >
+                        {% csrf_token %}
+                        <p>
+                            <label>Username  <span>*</span></label>
+                            {{form.username}}
+                            {% if form.errors.username %}
+                              <label class="text-danger" > {{form.errors.username}} </label>
+                            {% endif %}
+                        </p>
+                        <p>
+                            <label>Email address  <span>*</span></label>
+                            {{form.email}}
+                            {% if form.errors.email %}
+                              <label class="text-danger" > {{form.errors.email}} </label>
+                            {% endif %}
+                        </p>
+                        <p>
+                            <label>Passwords <span>*</span></label>
+                            {{form.password1}}
+                            {% if form.errors.password1 %}
+                              <label class="text-danger" > {{form.errors.password1}} </label>
+                            {% endif %}
+                        </p>
+                        <p>
+                            <label>Confirm Passwords <span>*</span></label>
+                            {{form.password2}}
+                            {% if form.errors.password2 %}
+                              <label class="text-danger" > {{form.errors.password2}} </label>
+                            {% endif %}
+                        </p>
+                        <div class="login_submit">
+                            <button type="submit">Register</button>
+                        </div>
+                    </form>
+                    <p>Already have an account? Then please <a href=" {% url 'login' %} "><span style="color: darksalmon;">Login</span></a>.</p>
+                </div>
+            </div>
+            <!--register area end-->
+        </div>
+    </div>
+
+<!-- customer login end -->
+
+{% endblock content %}
+    

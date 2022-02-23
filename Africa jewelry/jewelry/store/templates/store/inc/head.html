@@ -1,0 +1,31 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="referrer" content="no-referrer-when-downgrade"  >
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+    <!-- CSS 
+    ========================= -->
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins.css' %}">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <!-- alertifyjs -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!--alertifyjs Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    {% block title %}
+      
+    {% endblock title %}
+
+</head>

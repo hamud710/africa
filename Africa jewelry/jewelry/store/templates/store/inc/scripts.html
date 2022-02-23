@@ -1,0 +1,153 @@
+{% load static %}
+
+<!-- Plugins JS -->
+<script src="{% static 'assets/js/plugins.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.main.js' %}"></script>
+<script src="{% static 'assets/js/jquery.nice.select.js' %}"></script>
+<script src="{% static 'assets/js/scrollup.js' %}"></script>
+<script src="{% static 'assets/js/ajax.chimp.js' %}"></script>
+<script src="{% static 'assets/js/jquery.ui.js' %}"></script>
+<script src="{% static 'assets/js/jquery.elevatezoom.js' %}"></script>
+<script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+<script src="{% static 'assets/js/isotope.main.js' %}"></script>
+<script src="{% static 'assets/js/jqquery.ripples.js' %}"></script>
+<script src="{% static 'assets/js/jquery.cookie.js' %}"></script>
+<script src="{% static 'assets/js/bpopup.js' %}"></script>
+
+
+<!-- Main JS -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<!-- autoco -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    var availableTags = [];
+    $.ajax({
+        method: "GET",
+        url: "/searchproduct",
+        success: function(response){
+            
+            startAutocomplete(response)
+        }
+    })
+    function startAutocomplete(availableTags){
+        $( "#searchform" ).autocomplete({
+      source: availableTags
+    });
+    }
+    
+</script>
+
+
+<!-- alertifyjs -->
+
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<script>
+    alertify.set('notifier','position', 'bottom-right');
+    {% for msg in messages %}
+        alertify.success(' {{msg}} ')
+    {% endfor %}
+    
+
+    $(document).ready(function (){
+
+$('.addtocartbtn').click(function (e){
+    e.preventDefault();
+
+    var product_id = $(this).closest('.product_data').find('.prod_id').val();
+    var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+    var token = $('input[name=csrfmiddlewaretoken]').val();
+    
+
+    $.ajax({
+        method: "POST",
+        url: "/add-to-cart",
+        data: {
+            'product_id': product_id,
+            'product_qty':product_qty,
+            csrfmiddlewaretoken: token,
+        },
+        success: function(response){
+            alertify.success(response.status)
+        }
+    })
+} );
+} );
+
+$('.changeQuantity').click(function (e){
+    e.preventDefault();
+    
+
+    var product_id = $(this).closest('.product_data').find('.prod_id').val();
+    var product_qty = $(this).closest('.product_data').find('.qty-input').val();
+    var token = $('input[name=csrfmiddlewaretoken]').val();
+
+    
+    
+
+    $.ajax({
+        method: "POST",
+        url: "/update-cart",
+        data: {
+            'product_id': product_id,
+            'product_qty':product_qty,
+            csrfmiddlewaretoken: token,
+        },
+        success: function(response){
+            alertify.success(response.status)
+        }
+    })
+} );
+
+
+$('.deleteCartItem').click(function (e){
+    e.preventDefault();
+    
+    
+    
+
+    var product_id = $(this).closest('.product_data').find('.prod_id').val();
+    var token = $('input[name=csrfmiddlewaretoken]').val();
+    
+
+    $.ajax({
+        method: "POST",
+        url: "/delete-cart-item",
+        data: {
+            'product_id': product_id,
+            csrfmiddlewaretoken: token,
+            
+        },
+        success: function(response){
+            
+            alertify.success(response.status);
+            
+            setTimeout(function(){
+           location.reload(); 
+        }, 800);
+            
+            
+        }
+    })
+} );
+    
+</script>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6202e85a9bd1f31184dba00d/1frdln8md';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->

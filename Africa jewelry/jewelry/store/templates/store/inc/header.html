@@ -1,0 +1,238 @@
+{% load static %}
+
+<!--header area start-->
+{% comment %} class on header for home_black_version "header_black" {% endcomment %}
+<header class="header_area">
+    <!--header top start-->
+    <div class="header_top">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-7 col-md-12">
+                    <div class="welcome_text">
+                        <p>Free shipping on all domestic orders with coupon code <span>“Africa”</span></p>
+                        
+                        {% if request.user.is_authenticated %}
+                        <p>Welcome <span> {{user}} </span></p>
+                        {% endif %}
+                            
+                        
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12">
+                    <div class="top_right text-right">
+                        <ul>
+                            {% if user.is_authenticated %}
+                            <li class="top_links"><a href="{% url 'account' %}"> {{user}}  <i class="ion-chevron-down"></i></a>
+                                    {% else %}
+                                    <li class="top_links"><a href=" {% url 'account' %} ">My Account <i class="ion-chevron-down"></i></a>
+                                    {% endif %}
+                            
+                                <ul class="dropdown_links">
+                                    <li><a href="{% url 'checkout' %}">Checkout </a></li>
+
+
+                                    <li><a href="{% url 'viewcart' %}">Shopping Cart</a></li>
+                                    
+                                    {% if user.is_authenticated %}
+                                    <li><a href="#">My Account </a></li>
+                                    <li><a href="{% url 'logout' %}">Logout </a></li>
+                                    {% else %}
+                                    <li><a href=" {% url 'login' %} ">Login </a></li>
+                                    {% endif %}
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header top start-->
+
+    <!--header middel start-->
+    <div class="header_middel">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-5">
+                    <div class="home_contact">
+                        <div class="contact_box">
+                            <label>Location</label>
+                            <p> {{about.Address1}} </p>
+                        </div>
+                        <div class="contact_box">
+                            <label>Call free</label>
+                            <p><a href="tel:2656">{{about.Phone}}</a></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-4">
+                    <div class="logo">
+                        <a href="#"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-7 col-6">
+                    <div class="middel_right">
+                        <div class="search_btn">
+                           
+                            
+                            
+                                <form role="search"  action="{% url 'search' %}" method="POST">
+                                    {% csrf_token %}
+                                     <div class="order_button">
+                                    <input value="" id="searchform" required name="q" type="search" placeholder="Search product...">
+                                   
+                                        <button type="submit"><i class="ion-ios-search-strong"></i></button>
+                                    </div>
+                                    
+                                </form>
+                            
+                        </div>
+                        <div class="cart_link">
+                            
+                            
+                            {% if user.is_authenticated %}
+                                <a href="#"><i class="ion-android-cart"></i><span class="cart_text_quantity"> $138.00</span> <i class="fa fa-angle-down"></i></a>
+                                <span class="cart_quantity">5</span>
+                                {% else %}
+                                <a href="#"><i class="ion-android-cart"></i><span class="cart_text_quantity"> $0.00</span> <i class="fa fa-angle-down"></i></a>
+                                <span class="cart_quantity">0</span>
+                            {% endif %}
+                                
+                            <!--mini cart-->
+                            <div class="mini_cart">
+                                <div class="cart_close">
+                                    <div class="cart_text">
+                                        <h3>cart</h3>
+                                    </div>
+                                    <div class="mini_cart_close">
+                                        <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+
+                                {% if user.is_authenticated %}
+                                
+                                
+                                
+                                {% for carts in cart %}
+                                
+                                {% if carts.User == user %}
+                                <div class="cart_item">
+                                    <div class="cart_img">
+                                        <a href="#"><img src=" {{carts.Name.Image1.url}} " alt=""></a>
+                                    </div>
+                                    <div class="cart_info">
+                                        <a href="#"> {{carts.Name}} </a>
+                                        <span class="quantity">Qty: {{carts.Quantity}} </span>
+                                        <span class="price_cart">${{carts.Name.Price}}     </span>
+                                    </div>
+                                    <div class="cart_remove">
+                                        <a href="#"><i class="ion-android-close"></i></a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                    
+                                 
+                                {% endfor %}
+                                    
+                               
+                                
+                                
+                                
+                                <div class="cart_total">
+                                    <span>Subtotal:</span>
+                                    <span>138.00</span>
+                                </div>
+                                <div class="mini_cart_footer">
+                                    <div class="cart_button view_cart">
+                                        <a href="{% url 'viewcart' %}">View cart</a>
+                                    </div>
+                                    <div class="cart_button checkout">
+                                        <a class="active" href="{% url 'checkout' %}">Checkout</a>
+                                    </div>
+
+                                </div>
+                                {% else %}
+                                <div class="mini_cart_footer">
+                                    <div class="cart_button view_cart">
+                                        <a href="#">Login</a>
+                                    </div>
+                                    <div class="cart_button checkout">
+                                        <a class="active" href="#">SignUp</a>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+
+                               
+                                
+                                
+                                
+
+                            </div>
+                            <!--mini cart end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header middel end-->
+
+    <!--header bottom satrt-->
+    <div class="header_bottom sticky-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                   
+                    <div class="main_menu_inner">
+                        <div class="logo_sticky">
+                            <a href=" # "><img  src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                            
+                        </div>
+                        <div class="main_menu">
+                            <nav>
+                                <ul>
+
+                                    <li class="{% if request.resolver_match.url_name == 'home' %}
+                                    active
+                                    {% endif %}"  ><a href=" {% url 'home' %} ">Home </a>
+
+                                    </li>
+                                    <li  class="{% if request.resolver_match.url_name == 'shop' %}
+                                    active
+                                    {% endif %}"><a href=" {% url 'shop' %} ">shop </a>
+
+                                    </li>
+                                    <li  class="{% if request.resolver_match.url_name == 'blog' %}
+                                    active
+                                    {% endif %}" ><a href=" {% url 'blog' %} ">blog </a>
+                                        
+
+                                    </li>
+                                    <li  class="{% if request.resolver_match.url_name == 'contactus' %}
+                                    active
+                                    {% endif %}" ><a href=" {% url 'contactus' %} ">Contact Us </a>
+                                        
+
+                                    </li>
+                                    
+                                   
+                                        
+
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--header bottom end-->
+</header>
+<!--header area end-->

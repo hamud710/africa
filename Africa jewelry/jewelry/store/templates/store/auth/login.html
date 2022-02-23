@@ -1,0 +1,50 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+
+
+ <!-- customer login start -->
+ <div class="customer_login">
+    <div class="container">
+        <br>
+        
+            <!--login area start-->
+            <div class="col-lg-10 col-md-6">
+                <div class="account_form">
+                    <h2>login</h2>
+                    <form action="" method="post" >
+                        {% csrf_token %}
+                        <p>
+                            <label>Username <span>*</span></label>
+                            <input type="text" name="username" placeholder="Enter username" >
+                        </p>
+                        <p>
+                            <label>Passwords <span>*</span></label>
+                            <input type="password" name="password" placeholder="Enter password">
+                        </p>
+                        <div class="login_submit">
+                            <a href="#">Lost your password?</a>
+                            <label for="remember">
+                                <input id="remember" type="checkbox">
+                                Remember me
+                            </label>
+                            <button type="submit">login</button>
+
+                        </div>
+
+                    </form>
+                <p>If you have not created an account yet, then please
+                <a href="{% url 'register' %}"> <span style="color: darksalmon;">sign up</span> </a> first.</p>
+            </div>
+            </div>
+            
+            <!--login area start-->
+
+           
+        </div>
+    </div>
+
+<!-- customer login end -->
+
+{% endblock content %}
+    

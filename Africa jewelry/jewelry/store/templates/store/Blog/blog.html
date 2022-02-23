@@ -1,0 +1,261 @@
+{% extends 'store/layouts/main.html' %}
+
+{% block content %}
+  <!--breadcrumbs area start-->
+  <div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <h3>blog</h3>
+                    <ul>
+                        <li><a href="index.html">home</a></li>
+                        <li>></li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>         
+</div>
+<!--breadcrumbs area end-->
+
+
+
+
+
+
+<!--product section area start-->
+<section class="product_section p_section1 ">
+    <div class="container">
+        <div class="row"> 
+            <div class="product_tab_button">
+                <ul class="nav" role="tablist">
+                    <li>
+                        <a class="active" data-bs-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="true">Discount</a>
+                    </li>
+                    <li>
+                        <a data-bs-toggle="tab" href="#arrivals" role="tab" aria-controls="arrivals" aria-selected="false">Event </a>
+                    </li>
+                    
+                  
+                </ul>
+            </div>  
+            <div class="col-lg-9 col-md-12">
+                <div class="product_area"> 
+                    
+                     <div class="tab-content">
+                          <div class="tab-pane fade show active" id="featured" role="tabpanel">
+                                 <div class="product_container">
+                                    
+                                    <div class="col-lg-9 col-md-12">
+                                        <!--blog grid area start-->
+                                        <div class="blog_grid_area">
+                                            {% for disitem in discount %}
+                                            <div class="blog_grid gallery">
+                                                <div class="blog_thumb_active owl-carousel">
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdiscdetail' disitem.pk %}"><img src=" {{disitem.product.product_image1.url}} " alt=""></a>
+                                                    </div>
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdiscdetail' disitem.pk %}"><img src="{{disitem.product.product_image2.url}}" alt=""></a>
+                                                    </div>
+                                                    
+                                                    {% if disitem.product.product_image3 %}
+                                                       <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdiscdetail' disitem.pk %}"><img src=" {{disitem.product.product_image3.url}} " alt=""></a>
+                                                    </div> 
+                                                    {% endif %}
+                                                        
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                <div class="blog_content">
+                                                    <h3 class="post_title"><a href="{% url 'blogdiscdetail' disitem.pk %}"> {{disitem.title}} </a></h3>
+                                                    <div class="post_meta">
+                                                       <span><i class="ion-person"></i> Posted by </span>
+                                                        <span><a href="#">admin</a></span>
+                                                        <span>|</span>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i>  {{disitem.created_at}}	</span> 
+                    
+                                                    </div>
+                                                    <p style="display: -webkit-box;
+                                                    -webkit-line-clamp: 3;
+                                                    -webkit-box-orient: vertical;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;" class="post_desc">{{disitem.description}}</p>
+                                                    <a class="read_more" href="{% url 'blogdiscdetail' disitem.pk %}">read more</a>
+                                                    
+                                                </div>
+                                               
+                                            </div>
+                                            {% endfor %}
+                                            
+                                            
+                                            
+                                        </div>
+                                        <!--blog grid area start-->
+                                    </div>
+                                    
+                                </div>
+                          </div>
+                            <div class="tab-pane fade" id="arrivals" role="tabpanel">
+                                <div class="product_container">
+                                    <div class="col-lg-9 col-md-12">
+                                        <!--blog grid area start-->
+                                        <div class="blog_grid_area">
+                                           {% for blogsitem in blogs %}
+                                            <div class="blog_grid gallery">
+                                                <div class="blog_thumb_active owl-carousel">
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src=" {{blogsitem.image1.url}} " alt=""></a>
+                                                    </div>
+                                                    
+                                                    {% if blogsitem.image2 %}
+                                                       <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src="{{blogsitem.image2.url}}" alt=""></a>
+                                                    </div> 
+                                                    {% endif %}
+                                                        
+                                                    
+                                                    
+                                                    {% if blogsitem.image3 %}
+                                                       <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src=" {{blogsitem.image3.url}} " alt=""></a>
+                                                    </div> 
+                                                    {% endif %}
+                                                    
+                                                    {% if blogsitem.product %}
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src=" {{blogsitem.product.product_image1.url}} " alt=""></a>
+                                                    </div>
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src=" {{blogsitem.product.product_image2.url}} " alt=""></a>
+                                                    </div>
+                                                    
+                                                    {% if blogsitem.product.product_image3 %}
+                                                    <div class="single_blog_thumb">
+                                                        <a href="{% url 'blogdetail' blogsitem.pk %}"><img src=" {{blogsitem.product.product_image3.url}} " alt=""></a>
+                                                    </div>
+                                                    {% endif %}
+                                                        
+                                                        
+                                                    {% endif %}
+                                                        
+                                                        
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                <div class="blog_content">
+                                                    <h3 class="post_title"><a href="{% url 'blogdetail' blogsitem.pk %}"> {{blogsitem.title}} </a></h3>
+                                                    <div class="post_meta">
+                                                       <span><i class="ion-person"></i> Posted by </span>
+                                                        <span><a href="#">admin</a></span>
+                                                        <span>|</span>
+                                                        <span><i class="fa fa-calendar" aria-hidden="true"></i>  {{blogsitem.created_at}}	</span> 
+                    
+                                                    </div>
+                                                    <p style="display: -webkit-box;
+                                                    -webkit-line-clamp: 3;
+                                                    -webkit-box-orient: vertical;
+                                                    overflow: hidden;
+                                                    text-overflow: ellipsis;" class="post_desc">{{blogsitem.description}}</p>
+                                                    <a class="read_more" href="{% url 'blogdetail' blogsitem.pk %}">read more</a>
+                                                    
+                                                </div>
+                                               
+                                            </div>
+                                            {% endfor %}
+                                            
+                                            
+                                            
+                                        </div>
+                                        <!--blog grid area start-->
+                                    </div>
+                                </div> 
+
+                           </div> 
+                              
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <!--blog sidebar start-->
+                <aside class="blog_sidebar">
+                    
+                    
+                     <!--recent post start-->
+                    <div class="sidebar_widget recent_post">
+                        <h3 class="widget_title">Recent Products</h3>
+                       
+                        {% for items in item %}
+                        <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="{% url 'detail' items.pk items.category.name %}"><img src=" {{items.product_image1.url}} " alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="{% url 'detail' items.pk items.category.name %}"> {{items.name}} </a></h3>
+                                <span>{{items.created_at}}</span>
+                            </div>
+                            
+                        </div>  
+                        {% endfor %}
+                           
+                    </div>
+                    <!--recent post end-->
+                     
+                    
+                    <!--recent post start-->
+                    <div class="sidebar_widget recent_comments">
+                        <h3 class="widget_title">Recent Comments</h3>
+                        <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="blog-details.html"><img src="assets/img/blog/comment.png.jpg" alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="blog-details.html">Blog image post format</a></h3>
+                                <span>March 3, 2018</span>
+                            </div>
+                            
+                        </div>
+                        <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="blog-details.html"><img src="assets/img/blog/comment.png.jpg" alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="blog-details.html">Post in Gallery format</a></h3>
+                                <span>March 3, 2018</span>
+                            </div>
+                            
+                        </div> 
+                        <div class="sidebar_post">
+                            <div class="post_img">
+                                <a href="blog-details.html"><img src="assets/img/blog/comment.png.jpg" alt=""></a>
+                            </div>
+                            <div class="post_text">
+                                <h3><a href="blog-details.html">Single post in Audio format </a></h3>
+                                <span>March 3, 2018</span>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <!--recent post end-->
+       
+                </aside>
+ 
+                <!--blog sidebar start-->
+            </div>
+        </div>    
+    </div>
+</section>
+<!--product section area end-->
+
+
+
+
+{% endblock content %}
+    
